@@ -75,7 +75,7 @@ CREATE TABLE happenings(
 
 CREATE TABLE stories(
 	storyID INT,
-    storyImage VARCHAR(100), # The thought was a image url
+    storyImage VARCHAR(400), # The thought was a image url
     userID INT NOT NULL,
     publishedAt DATETIME,
     PRIMARY KEY(storyID),

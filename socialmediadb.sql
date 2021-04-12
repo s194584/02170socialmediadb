@@ -51,11 +51,11 @@ CREATE TABLE posts(
 	postID INT,
 	userID INT NOT NULL,
     communityID INT,
-    postText VARCHAR(3000), # This could be of type TEXT
-    postImage VARCHAR(100), # Image url
+    postText VARCHAR(3000),
+    postImage VARCHAR(100),
     postedAt DATETIME,
     PRIMARY KEY (postID),
-    FOREIGN KEY (userID) REFERENCES users(userID) ON DELETE CASCADE, # If the user gets deletes, then remove its posts
+    FOREIGN KEY (userID) REFERENCES users(userID) ON DELETE CASCADE, # If the user gets deleted, then remove its posts
 	FOREIGN KEY(communityID) REFERENCES communities(communityID) ON DELETE CASCADE # If the group gets deleted, then remove all postings
 );
 
@@ -65,11 +65,11 @@ CREATE TABLE happenings(
     startTime DATETIME,
     endTime DATETIME,
     summary VARCHAR(200),
-    happenType VARCHAR(30), # Maybe make some type of 
-    location VARCHAR(30), # Break up the location somehow to street and number
+    happenType VARCHAR(30),
+    location VARCHAR(30),
     hostID INT,
     PRIMARY KEY(happenID),
-    FOREIGN KEY(hostID) REFERENCES users(userID) ON DELETE CASCADE # Event can still go on, if the User gets deleted
+    FOREIGN KEY(hostID) REFERENCES users(userID) ON DELETE CASCADE
 );
 
 CREATE TABLE stories(
@@ -88,7 +88,7 @@ CREATE TABLE comments(
     commentText VARCHAR(256),
     PRIMARY KEY(postID,userID,commentedAt),
     FOREIGN KEY(postID) REFERENCES posts(postID) ON DELETE CASCADE,
-    FOREIGN KEY(userID) REFERENCES users(userID) ON DELETE CASCADE # Comments will still be there, even if the user is deleted
+    FOREIGN KEY(userID) REFERENCES users(userID) ON DELETE CASCADE
 );
 
 CREATE TABLE followers(

@@ -229,12 +229,12 @@ INSERT INTO happenings VALUES
 "Presentation", "Online", 4);
 
 INSERT INTO stories VALUES
-(1, "INSERT INTO stories VALUES(1, "", 1, NOW());", 1, NOW()),
-(2, "https://static.remove.bg/remove-bg-web/71dbdf11b48cb655eefe2f609ad67295258ae141/assets/start-0e837dcc57769db2306d8d659f53555feb500b3c5d456879b9c843d1872e7baa.jpg", 2, NOW()),
-(3, "https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg", 1, NOW()),
-(4, "https://miro.medium.com/max/1838/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg", 3, NOW()),
-(5, "https://dyl80ryjxr1ke.cloudfront.net/external_assets/hero_examples/hair_beach_v1785392215/original.jpeg", 4, NOW()),
-(6, "https://media-exp1.licdn.com/dms/image/C561BAQGEbvT3SFyR9Q/company-background_10000/0/1582050035728?e=2159024400&v=beta&t=xwPLRsVBBNXQQS3HN3q7hsYXmt6JxJsH6lpnbh9Y1ko", 5, NOW()),
+(1, "https://devhumor.com/content/uploads/images/March2018/select_from.png", 1, NOW()),
+(2, "https://starecat.com/content/wp-content/uploads/sql-programmers-be-like-hitting-caps-lock-before-starting-work.jpg", 2, NOW()),
+(3, "https://i.pinimg.com/736x/92/da/51/92da51ee076f920d710aa10baabb1bd6.jpg", 1, NOW()),
+(4, "https://pics.me.me/thumb_dishonorable-mention-sql-70379250.png", 3, NOW()),
+(5, "https://i.redd.it/gyrqcwi2ggo11.png", 4, NOW()),
+(6, "https://miro.medium.com/max/830/1*6eRQfZG0ndjvxvE0HfzBrQ.jpeg", 5, NOW()),
 (7, "https://sociallysorted.com.au/wp-content/uploads/2020/01/Remove-Background-Image-3-Toolsto-Nail-It-One-Click.jpg", 5, NOW()),
 (8, "https://theinpaint.com/images/example-1-2.jpg", 2, NOW()),
 (9, "https://justifiedgrid.com/wp-content/uploads/life/biking/137646854.jpg", 1, NOW()),

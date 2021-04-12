@@ -61,6 +61,60 @@ DELETE FROM users
 WHERE Age(dateOfBirth) < (SELECT min(PGRating) FROM tags);
 
 
+## Procedure
+DROP TABLE IF EXISTS notifications;
+
+CREATE TABLE notifications(
+	notificationID INT AUTO_INCREMENT,
+	email VARCHAR(40),
+    message VARCHAR(400),
+    PRIMARY KEY (notificationID)
+);
+
+
+DROP PROCEDURE IF EXISTS notifyUser;
+
+DELIMITER //
+CREATE PROCEDURE notifyUser
+(IN vuserID INT,IN vmessage VARCHAR(600))
+BEGIN
+	DECLARE vemail VARCHAR(40);
+	SELECT email INTO vemail FROM users
+    WHERE userID = vuserID;
+    INSERT INTO notifications (email,message) VALUES (vemail,vmessage);
+END //
+DELIMITER ;
+
+CALL notifyUser(1, 'hej');
+SELECT * FROM notifications;
+
+## trigger
+DROP TRIGGER IF EXISTS comment_after_insert;
+
+DELIMITER //
+CREATE TRIGGER comment_after_insert
+AFTER INSERT ON comments FOR EACH ROW
+BEGIN
+	DECLARE vuserpostID INT;
+    DECLARE vpostusername VARCHAR(40);
+    DECLARE vcommentusername VARCHAR(40);
+    SELECT userID INTO vuserpostID FROM posts
+    WHERE postID = NEW.postID;
+    SELECT userName INTO vpostusername FROM posts NATURAL JOIN users
+    WHERE postID = NEW.postID;
+    SELECT userName INTO vcommentusername FROM users
+    WHERE userID = NEW.userID;
+	CALL notifyUser(New.userID, CONCAT('Hello ', vpostusername, '!!! ', vcommentusername, ' commented this: "', New.commentText, '" on your post!'));
+END //
+DELIMITER ;
+
+INSERT INTO comments VALUES
+(1, 3, current_timestamp(), "You look so pretty xD");
+
+
+
+
+
 
 
 

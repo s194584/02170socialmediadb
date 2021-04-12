@@ -140,7 +140,8 @@ CREATE TABLE tagged(
     FOREIGN KEY(tag) REFERENCES tags(tag) ON DELETE CASCADE
 );
 
-# Populating tables 
+# Populating tables --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 INSERT users VALUES
 (1,'Verna Johnson','1992-04-18','2001-05-10 10:40:32','Verna@gmail.com'),
 (2,'Flora Kilback','1987-04-18','2010-01-09 19:58:12','Flora@gmail.com'),
@@ -228,18 +229,20 @@ INSERT INTO happenings VALUES
 "Presentation", "Online", 4);
 
 INSERT INTO stories VALUES
-(1, "INSERT INTO stories VALUES(1, "", 1, current_timestamp());", 1, current_timestamp()),
-(2, "https://static.remove.bg/remove-bg-web/71dbdf11b48cb655eefe2f609ad67295258ae141/assets/start-0e837dcc57769db2306d8d659f53555feb500b3c5d456879b9c843d1872e7baa.jpg", 2, current_timestamp()),
-(3, "https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg", 1, current_timestamp()),
-(4, "https://miro.medium.com/max/1838/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg", 3, current_timestamp()),
-(5, "https://dyl80ryjxr1ke.cloudfront.net/external_assets/hero_examples/hair_beach_v1785392215/original.jpeg", 4, current_timestamp()),
-(6, "https://media-exp1.licdn.com/dms/image/C561BAQGEbvT3SFyR9Q/company-background_10000/0/1582050035728?e=2159024400&v=beta&t=xwPLRsVBBNXQQS3HN3q7hsYXmt6JxJsH6lpnbh9Y1ko", 5, current_timestamp()),
-(7, "https://sociallysorted.com.au/wp-content/uploads/2020/01/Remove-Background-Image-3-Toolsto-Nail-It-One-Click.jpg", 5, current_timestamp()),
-(8, "https://theinpaint.com/images/example-1-2.jpg", 2, current_timestamp()),
-(9, "https://justifiedgrid.com/wp-content/uploads/life/biking/137646854.jpg", 1, current_timestamp()),
-(10, "https://res.cloudinary.com/demo/image/upload/w_500,f_auto/sample.jpg", 8, current_timestamp());               
+(1, "INSERT INTO stories VALUES(1, "", 1, NOW());", 1, NOW()),
+(2, "https://static.remove.bg/remove-bg-web/71dbdf11b48cb655eefe2f609ad67295258ae141/assets/start-0e837dcc57769db2306d8d659f53555feb500b3c5d456879b9c843d1872e7baa.jpg", 2, NOW()),
+(3, "https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg", 1, NOW()),
+(4, "https://miro.medium.com/max/1838/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg", 3, NOW()),
+(5, "https://dyl80ryjxr1ke.cloudfront.net/external_assets/hero_examples/hair_beach_v1785392215/original.jpeg", 4, NOW()),
+(6, "https://media-exp1.licdn.com/dms/image/C561BAQGEbvT3SFyR9Q/company-background_10000/0/1582050035728?e=2159024400&v=beta&t=xwPLRsVBBNXQQS3HN3q7hsYXmt6JxJsH6lpnbh9Y1ko", 5, NOW()),
+(7, "https://sociallysorted.com.au/wp-content/uploads/2020/01/Remove-Background-Image-3-Toolsto-Nail-It-One-Click.jpg", 5, NOW()),
+(8, "https://theinpaint.com/images/example-1-2.jpg", 2, NOW()),
+(9, "https://justifiedgrid.com/wp-content/uploads/life/biking/137646854.jpg", 1, NOW()),
+(10, "https://res.cloudinary.com/demo/image/upload/w_500,f_auto/sample.jpg", 8, NOW()),               
+(11, "This should be deleted after the 10 minutes", 1, NOW() - interval 24 HOUR);
 
 INSERT INTO posts VALUES
+
 (1, 2, 2, "Welcome to the group Buy & Sell - Lyngby! This is a group for people to sell and buy second hand items :)", NULL, "2011-01-23 10:45:01"),
 (2, 9, 2, "I'm selling my old bicycle. It is red and has wheels of size 5\'5\", I have attached an image bellow. Price is 1200.", "https://via.placeholder.com/150", "2019-11-14 08:31:01"),
 (3, 11, NULL, "Went for a run today, 5 km, it was sooo refreshing! :)", NULL, "2001-01-01 16:45:07"),
@@ -359,3 +362,96 @@ INSERT INTO comments VALUES
 (2, 5, "2019-11-14 10:03:56", "Your stomach probably thinks all potatoes are mashed potatoes"),
 (3, 6, '2016-02-23 03:59:47', "Fries, wedges, baked, mojos, mashed... I love 'em");
 
+
+# Views --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Drop views if they already exists
+DROP VIEW IF EXISTS thisWeeksHappenings;
+DROP VIEW IF EXISTS communitiesWithOwner;
+DROP VIEW IF EXISTS communityMemberAmount;
+DROP VIEW IF EXISTS postPGRating;
+DROP VIEW IF EXISTS communityPGRating;
+DROP VIEW IF EXISTS publicPosts;
+DROP VIEW IF EXISTS publicGroups;
+
+# Create views
+CREATE VIEW thisWeeksHappenings(happenID, startTime, endTime) as
+SELECT happenID, startTime, endTime FROM happenings 
+WHERE startTime >= NOW() && startTime <= NOW() + INTERVAL 7 DAY;
+
+CREATE VIEW communitiesWithOwner as
+SELECT communityID, communityName, isPublic, ownerID, moderatorID, userName, dateOfBirth, email
+FROM communities
+INNER JOIN users ON communities.ownerID = users.userID;
+
+CREATE VIEW communityMemberAmount as
+SELECT communityID, communityName , COUNT(userID) as amountOfMembers
+FROM members natural join communities
+GROUP BY communityID
+ORDER BY amountOfMembers DESC;
+
+CREATE VIEW postPGRating as
+(SELECT postID, max(PGRating) as PGRating
+FROM tagged JOIN tags USING(tag)
+GROUP BY postID);
+
+CREATE VIEW communityPGRating as
+SELECT communityID, max(PGRating) as PGRating
+FROM communities LEFT OUTER JOIN posts USING(communityID) 
+				 LEFT OUTER JOIN postPGRating USING (postID)
+GROUP BY communityID
+ORDER BY communityID;
+
+CREATE VIEW publicPosts AS SELECT userName, postText, postImage, postedAt FROM (posts NATURAL JOIN users) WHERE communityID IS NULL;
+
+CREATE VIEW publicGroups AS SELECT communityName FROM communities WHERE isPublic = true;
+
+
+# Event ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+set global event_scheduler = on;
+
+CREATE EVENT removeStories ON SCHEDULE EVERY 10 MINUTE DO 
+	DELETE FROM stories WHERE (NOW() - interval 24 HOUR) > publishedAt;
+    
+    
+# Query to get user activity --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+((SELECT userID, postedAt AS activity FROM posts)
+UNION ALL
+(SELECT userID, commentedAt FROM comments))
+UNION ALL
+(SELECT userID, publishedAt FROM stories) ORDER BY userID;
+
+# Get all posts by user -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT posts.postID, posts.postText, posts.postImage, posts.postedAt, users.userName, communities.communityName
+FROM posts 
+INNER JOIN users ON posts.userID = users.userID
+INNER JOIN communities ON posts.communityID = communities.communityID
+WHERE posts.userID = 9;
+
+# Updating tag to PGRating 13 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SET SQL_SAFE_UPDATES = 0;
+
+SELECT * FROM tags;
+
+# look at change in
+SELECT * FROM postPGRating;
+
+UPDATE tags SET PGRating =
+CASE
+WHEN PGRating < 13
+THEN 13
+ELSE PGRating
+END;
+
+# Deleting all users who are younger than 13 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE FUNCTION Age (vDate DATE) RETURNS INTEGER
+RETURN TIMESTAMPDIFF(YEAR, vDate , CURDATE());
+
+SELECT userID, userName, Age(dateOfBirth)as Age FROM users;
+
+SELECT * 
+from posts
+Where userID = 4 or userID = 6;
+
+DELETE FROM users
+WHERE Age(dateOfBirth) < (SELECT min(PGRating) FROM tags);

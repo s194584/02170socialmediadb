@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS followers;
 DROP TABLE IF EXISTS reactions;
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS tagged;
+DROP TABLE IF EXISTS notifications;
 
 # Creating tables
 CREATE TABLE moderators(
@@ -139,6 +140,14 @@ CREATE TABLE tagged(
     FOREIGN KEY(postID) REFERENCES posts(postID) ON DELETE CASCADE,
     FOREIGN KEY(tag) REFERENCES tags(tag) ON DELETE CASCADE
 );
+
+CREATE TABLE notifications(
+	notificationID INT AUTO_INCREMENT,
+	email VARCHAR(40),
+    message VARCHAR(400),
+    PRIMARY KEY (notificationID)
+);
+
 
 # Populating tables --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

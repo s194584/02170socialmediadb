@@ -446,6 +446,50 @@ BEGIN
 END; //
 DELIMITER ;
 
+
+# Procedure ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS notifications;
+
+CREATE TABLE notifications(
+	notificationID INT AUTO_INCREMENT,
+	email VARCHAR(40),
+    message VARCHAR(400),
+    PRIMARY KEY (notificationID)
+);
+
+DROP PROCEDURE IF EXISTS notifyUser;
+
+DELIMITER //
+CREATE PROCEDURE notifyUser
+(IN vuserID INT,IN vmessage VARCHAR(600))
+BEGIN
+	DECLARE vemail VARCHAR(40);
+	SELECT email INTO vemail FROM users
+    WHERE userID = vuserID;
+    INSERT INTO notifications (email,message) VALUES (vemail,vmessage);
+END //
+DELIMITER ;
+
+# trigger ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DROP TRIGGER IF EXISTS comment_after_insert;
+
+DELIMITER //
+CREATE TRIGGER comment_after_insert
+AFTER INSERT ON comments FOR EACH ROW
+BEGIN
+	DECLARE vuserpostID INT;
+    DECLARE vpostusername VARCHAR(40);
+    DECLARE vcommentusername VARCHAR(40);
+    SELECT userID INTO vuserpostID FROM posts
+    WHERE postID = NEW.postID;
+    SELECT userName INTO vpostusername FROM posts NATURAL JOIN users
+    WHERE postID = NEW.postID;
+    SELECT userName INTO vcommentusername FROM users
+    WHERE userID = NEW.userID;
+	CALL notifyUser(New.userID, CONCAT('Hello ', vpostusername, '!!! ', vcommentusername, ' commented this: "', New.commentText, '" on your post!'));
+END //
+DELIMITER ;
+
 # Query to get user activity --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ((SELECT userID, postedAt AS activity FROM posts)
 UNION ALL
@@ -500,14 +544,14 @@ WHERE Age(dateOfBirth) < (SELECT min(PGRating) FROM tags);
 # TESTS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## VIEWS
-# SELECT * FROM thisWeeksHappenings;
-# SELECT * FROM communitiesWithOwner;
-# SELECT * FROM communityMemberAmount;
-# SELECT * FROM postPGRating;
-# SELECT * FROM communityPGRating;
-# SELECT * FROM publicPosts;
-# SELECT * FROM publicGroups;
-# SELECT * FROM memberContactInfos;
+SELECT * FROM thisWeeksHappenings;
+SELECT * FROM communitiesWithOwner;
+SELECT * FROM communityMemberAmount;
+SELECT * FROM postPGRating;
+SELECT * FROM communityPGRating;
+SELECT * FROM publicPosts;
+SELECT * FROM publicGroups;
+SELECT * FROM memberContactInfos;
 
 ## FUNCTIONS
 SELECT * FROM posts WHERE canSeePost(6,postID);  # find all posts that user with ID 6 can see.
@@ -517,3 +561,12 @@ INSERT INTO stories VALUES(11, "This should be deleted after the 5 SECONDS", 1, 
 SELECT * FROM stories;
 DO SLEEP(5);
 SELECT * FROM stories;
+
+## Procedure
+CALL notifyUser(1, 'hej');
+SELECT * FROM notifications;
+
+## Trigger
+INSERT INTO comments VALUES
+(1, 3, current_timestamp(), "You look so pretty xD");
+SELECT * FROM notifications;

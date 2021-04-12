@@ -550,7 +550,7 @@ SELECT * FROM communityMemberAmount;
 SELECT * FROM postPGRating;
 SELECT * FROM communityPGRating;
 SELECT * FROM publicPosts;
-SELECT * FROM publicGroups;
+SELECT * FROM publicCommunities;
 SELECT * FROM memberContactInfos;
 
 ## FUNCTIONS

@@ -57,16 +57,16 @@ INSERT Followers VALUES
 (7,2,'2006-11-28');
 
 # Filling the communities table
-INSERT INTO communities VALUES(1, "Software2019", current_timestamp(), true, 1, 1),
-(2, "Buy & Sell - Lyngby", current_timestamp(), true, 2, 2),
-(3, "Mat 1 memes", current_timestamp(), true, 3, 3),
-(4, "The Sørensen Family", current_timestamp(), false, 4, 4),
-(5, "Internal group for POP dormitory", current_timestamp(), false, 5, 5),
-(6, "Fishing enthusiasts", current_timestamp(), true, 6, 6),
-(7, "Vegetarian Receipes", current_timestamp(), true, 7, 1),
-(8, "Fan group for ThatOneSportsDude", current_timestamp(), true, 8, 2),
-(9, "Copenhagen wine club", current_timestamp(), true, 9, 3),
-(10, "TheOneEvent", current_timestamp(), false, 10, 4);
+INSERT INTO communities VALUES(1, "Software2019", NOW(), true, 1, 1),
+(2, "Buy & Sell - Lyngby", NOW(), true, 2, 2),
+(3, "Mat 1 memes", NOW(), true, 3, 3),
+(4, "The Sørensen Family", NOW(), false, 4, 4),
+(5, "Internal group for POP dormitory", NOW(), false, 5, 5),
+(6, "Fishing enthusiasts", NOW(), true, 6, 6),
+(7, "Vegetarian Receipes", NOW(), true, 7, 1),
+(8, "Fan group for ThatOneSportsDude", NOW(), true, 8, 2),
+(9, "Copenhagen wine club", NOW(), true, 9, 3),
+(10, "TheOneEvent", NOW(), false, 10, 4);
                                 
 # Happenings
 -- Inspiration found from meetup.com
@@ -103,23 +103,23 @@ INSERT INTO happenings VALUES (1,"Solving Real World Problems via ML",
                                 4);
 
 # Fill stories table
-INSERT INTO stories VALUES(1, "INSERT INTO stories VALUES(1, "", 1, current_timestamp());", 1, current_timestamp()),
-(2, "https://static.remove.bg/remove-bg-web/71dbdf11b48cb655eefe2f609ad67295258ae141/assets/start-0e837dcc57769db2306d8d659f53555feb500b3c5d456879b9c843d1872e7baa.jpg", 2, current_timestamp()),
-(3, "https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg", 1, current_timestamp()),
-(4, "https://miro.medium.com/max/1838/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg", 3, current_timestamp()),
-(5, "https://dyl80ryjxr1ke.cloudfront.net/external_assets/hero_examples/hair_beach_v1785392215/original.jpeg", 4, current_timestamp()),
-(6, "https://media-exp1.licdn.com/dms/image/C561BAQGEbvT3SFyR9Q/company-background_10000/0/1582050035728?e=2159024400&v=beta&t=xwPLRsVBBNXQQS3HN3q7hsYXmt6JxJsH6lpnbh9Y1ko", 5, current_timestamp()),
-(7, "https://sociallysorted.com.au/wp-content/uploads/2020/01/Remove-Background-Image-3-Toolsto-Nail-It-One-Click.jpg", 5, current_timestamp()),
-(8, "https://theinpaint.com/images/example-1-2.jpg", 2, current_timestamp()),
-(9, "https://justifiedgrid.com/wp-content/uploads/life/biking/137646854.jpg", 1, current_timestamp()),
-(10, "https://res.cloudinary.com/demo/image/upload/w_500,f_auto/sample.jpg", 8, current_timestamp());               
+INSERT INTO stories VALUES(1, "INSERT INTO stories VALUES(1, "", 1, NOW());", 1, NOW()),
+(2, "https://static.remove.bg/remove-bg-web/71dbdf11b48cb655eefe2f609ad67295258ae141/assets/start-0e837dcc57769db2306d8d659f53555feb500b3c5d456879b9c843d1872e7baa.jpg", 2, NOW()),
+(3, "https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg", 1, NOW()),
+(4, "https://miro.medium.com/max/1838/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg", 3, NOW()),
+(5, "https://dyl80ryjxr1ke.cloudfront.net/external_assets/hero_examples/hair_beach_v1785392215/original.jpeg", 4, NOW()),
+(6, "https://media-exp1.licdn.com/dms/image/C561BAQGEbvT3SFyR9Q/company-background_10000/0/1582050035728?e=2159024400&v=beta&t=xwPLRsVBBNXQQS3HN3q7hsYXmt6JxJsH6lpnbh9Y1ko", 5, NOW()),
+(7, "https://sociallysorted.com.au/wp-content/uploads/2020/01/Remove-Background-Image-3-Toolsto-Nail-It-One-Click.jpg", 5, NOW()),
+(8, "https://theinpaint.com/images/example-1-2.jpg", 2, NOW()),
+(9, "https://justifiedgrid.com/wp-content/uploads/life/biking/137646854.jpg", 1, NOW()),
+(10, "https://res.cloudinary.com/demo/image/upload/w_500,f_auto/sample.jpg", 8, NOW());               
 
 # postID, userID, communityID, text, image, timestamp
-INSERT INTO posts VALUES(1, 2, 2, "Welcome to the group Buy & Sell - Lyngby! This is a group for people to sell and buy second hand items :)", NULL, current_timestamp()),
-(2, 9, 2, "I'm selling my old bicycle. It is red and has wheels of size 5\'5\", I have attached an image bellow. Price is 1200.", "https://via.placeholder.com/150", current_timestamp()),
-(3, 11, NULL, "Went for a run today, 5 km, it was sooo refreshing! :)", NULL, current_timestamp()),
-(4, 5, NULL, "Our cat has run away, has anyone seen her? She\'s a tiny and red and we miss her very much :((", NULL, current_timestamp()),
-(5, 11, 9, "We are creating an event for a wine tasting later this month. Date will come soon, how many would be interested in participating? Leave a comment bellow.", NULL, current_timestamp()),
+INSERT INTO posts VALUES(1, 2, 2, "Welcome to the group Buy & Sell - Lyngby! This is a group for people to sell and buy second hand items :)", NULL, NOW()),
+(2, 9, 2, "I'm selling my old bicycle. It is red and has wheels of size 5\'5\", I have attached an image bellow. Price is 1200.", "https://via.placeholder.com/150", NOW()),
+(3, 11, NULL, "Went for a run today, 5 km, it was sooo refreshing! :)", NULL, NOW()),
+(4, 5, NULL, "Our cat has run away, has anyone seen her? She\'s a tiny and red and we miss her very much :((", NULL, NOW()),
+(5, 11, 9, "We are creating an event for a wine tasting later this month. Date will come soon, how many would be interested in participating? Leave a comment bellow.", NULL, NOW()),
 (6, 3, 7, "On request, here\'s my recipe for vegetarian chocolate chip cookies: 200g/7oz dairy-free margarine
 																					125g/4½oz soft light brown sugar
 																					100g/3½oz caster sugar
@@ -129,11 +129,11 @@ INSERT INTO posts VALUES(1, 2, 2, "Welcome to the group Buy & Sell - Lyngby! Thi
                                                                                     ½ tsp bicarbonate of soda
                                                                                     pinch of salt
                                                                                     200g/7oz vegan dark chocolate chips
-                                                                                    1 tbsp soya milk", NULL, current_timestamp()),
-(7, 1, 6, "Does anyone want to go fishing next Saturday?", NULL, current_timestamp()),
-(8, 7, 7, "Hi! I recently became a vegetarian, and I am looking for inspiration for cooking books! Would love to hear all your recommendations! Cheers <3", NULL, current_timestamp()),
-(9, 9, 8, "This is a fan page for ThatOneSportDude", NULL, current_timestamp()),
-(10, 5, 4, "Picture from family dinner last night at grandma\'s!", "https://via.placeholder/200", current_timestamp());
+                                                                                    1 tbsp soya milk", NULL, NOW()),
+(7, 1, 6, "Does anyone want to go fishing next Saturday?", NULL, NOW()),
+(8, 7, 7, "Hi! I recently became a vegetarian, and I am looking for inspiration for cooking books! Would love to hear all your recommendations! Cheers <3", NULL, NOW()),
+(9, 9, 8, "This is a fan page for ThatOneSportDude", NULL, NOW()),
+(10, 5, 4, "Picture from family dinner last night at grandma\'s!", "https://via.placeholder/200", NOW());
 
 INSERT INTO tagged VALUES
 (7, "travel"),
@@ -215,12 +215,12 @@ INSERT INTO members VALUES
 (5, 1, "2019-04-19 09:30:59");
 
 # Filling the comments table
-INSERT INTO comments VALUES(1, 1, current_timestamp(), "OMG SAME!"),
-(2, 2, current_timestamp(), "You look so pretty!"),
-(3, 3, current_timestamp(), "Potatoes mashed by a hand masher, with lots of butter, and pepper and salt. With chopped spring onions, crispy bacon, and cream corn."),
-(1, 4, current_timestamp(), "A reflection of my health consciousness over the years:
+INSERT INTO comments VALUES(1, 1, NOW(), "OMG SAME!"),
+(2, 2, NOW(), "You look so pretty!"),
+(3, 3, NOW(), "Potatoes mashed by a hand masher, with lots of butter, and pepper and salt. With chopped spring onions, crispy bacon, and cream corn."),
+(1, 4, NOW(), "A reflection of my health consciousness over the years:
 When I was a kid : French Fries 
 When I was in my 20s : Mashed Potatoes with butter. 
 Now : Baked Potatoes without butter"),
-(2, 5, current_timestamp(), "Your stomach probably thinks all potatoes are mashed potatoes"),
-(3, 6, current_timestamp(), "Fries, wedges, baked, mojos, mashed... I love 'em");
+(2, 5, NOW(), "Your stomach probably thinks all potatoes are mashed potatoes"),
+(3, 6, NOW(), "Fries, wedges, baked, mojos, mashed... I love 'em");

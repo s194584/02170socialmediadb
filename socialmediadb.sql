@@ -404,7 +404,7 @@ ORDER BY communityID;
 
 CREATE VIEW publicPosts AS SELECT userName, postText, postImage, postedAt FROM (posts NATURAL JOIN users) WHERE communityID IS NULL;
 
-CREATE VIEW publicGroups AS SELECT communityName FROM communities WHERE isPublic = true;
+CREATE VIEW publicCommunities AS SELECT communityName FROM communities WHERE isPublic = true;
 
 CREATE VIEW memberContactInfos as
 SELECT c.communityID,c.communityName,u.userName,u.email 

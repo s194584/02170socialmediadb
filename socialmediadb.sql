@@ -435,10 +435,10 @@ BEGIN
     SELECT COUNT(*) INTO underagedTags FROM tags WHERE tag IN (SELECT tag FROM tagged WHERE postID=pID) AND age<PGRating;
     # If any underaged tags are counted, then the user is underage.
     IF underagedTags != 0 THEN RETURN false; END IF;
-    # See if whether the thingy is public or is in a group
+    # See if whether the post is public or is in a group
     SELECT communityID INTO comID FROM posts WHERE postID=pID;
     IF comID is NULL THEN RETURN TRUE; END IF;
-    # Then the post is part of a community, but is the user part of it
+    # Then the post is part of a community, but is the user part of the community
     SELECT COUNT(*) INTO memberCom FROM members WHERE userID=uID AND communityID=comID;
     IF memberCom = 0 THEN RETURN FALSE; END IF;
      

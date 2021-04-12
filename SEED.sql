@@ -4,9 +4,9 @@ INSERT Users VALUES
 (1,'Verna Johnson','1992-04-18','2001-05-10','Verna@gmail.com'),
 (2,'Flora Kilback','1987-04-18','2010-01-09','Flora@gmail.com'),
 (3,'Milton Brakus','1999-01-12','2015-03-19','Milton@gmail.com'),
-(4,'Bonnie Walter','2001-10-01','2016-02-10','Bonnie@gmail.com'),
+(4,'Bonnie Walter','2013-10-01','2016-02-10','Bonnie@gmail.com'),
 (5,'Liam Armstrong','1992-03-07','2008-01-01','Liam@gmail.com'),
-(6,'Oliva Ankunding','2002-12-12','2016-02-17','Oliva@gmail.com'),
+(6,'Oliva Ankunding','2012-12-12','2016-02-17','Oliva@gmail.com'),
 (7,'Emma Schinner','1985-06-03','1999-05-10','Emma@gmail.com'),
 (8,'Benjamin Greenholt','1992-04-17','2009-01-18','Benjamin@gmail.com'),
 (9,'Charlotte Wolf','1993-05-08','2007-03-03','Charlotte@gmail.com'),
@@ -16,13 +16,13 @@ INSERT Users VALUES
 (13,'Elijah Mosciski','1986-04-23','2001-09-17','Elijah@gmail.com');
 
 INSERT INTO tags VALUES
-("food", 13),
+("food", 3),
 ("travel", 15),
-("movies", 13),
+("movies", 3),
 ("music", 13),
 ("memes", 15),
-("sport", 13),
-("database", 13),
+("sport", 3),
+("database", 3),
 ("cars", 18);
 
 INSERT INTO moderators VALUES
